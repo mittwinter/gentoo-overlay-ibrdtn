@@ -18,6 +18,20 @@ Gentoo portage overlay for IBR DTN
   hesitate to open an issue at github
   (https://github.com/mittwinter/gentoo-overlay-ibrdtn/issues).
 
+  Usage
+  *****
+
+  Add a local portage overlay directory to your /etc/make.conf by adding the line:
+
+  PORTDIR_OVERLAY="/usr/local/portage ${PORTDIR_OVERLAY}"
+
+  In /usr/local/portage, clone the git repository (as root):
+
+  # git clone git://github.com/mittwinter/gentoo-overlay-ibrdtn.git .
+
+  And you are set to e. g.
+  # emerge -av ibrdtnd
+
   Future work
   ***********
 
