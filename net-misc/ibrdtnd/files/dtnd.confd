@@ -1,0 +1,14 @@
+# /etc/conf.d/dtnd: config file for /etc/init.d/dtnd
+
+# dtnd config directory
+#DTND_CONFDIR="/etc/dtn"
+
+# Options to pass to dtnd
+DTND_OPTS=""
+
+# Pid file to use (needs to be absolute path).
+#DTND_PIDFILE="/var/run/dtnd.pid"
+
+
+# Path to the dtnd binary (needs to be absolute path).
+#DTND_BINARY="/usr/sbin/dtnd"
