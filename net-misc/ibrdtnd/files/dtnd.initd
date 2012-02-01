@@ -1,0 +1,48 @@
+#!/sbin/runscript
+# Distributed under the terms of the GNU General Public License v2
+
+extra_commands="checkconfig"
+
+depend() {
+	need net
+}
+
+DTND_CONFDIR=${DTND_CONFDIR:-/etc/dtn}
+DTND_PIDFILE=${DTND_PIDFILE:-/var/run/${SVCNAME}.pid}
+DTND_BINARY=${DTND_BINARY:-/usr/sbin/dtnd}
+
+checkconfig() {
+	if [ ! -e "${DTND_CONFDIR}"/ibrdtn.conf ] ; then
+		eerror "You need an ${DTND_CONFDIR}/ibrdtn.conf file to run dtnd"
+		eerror "There is a sample file in /usr/share/doc/ibrdtnd"
+		return 1
+	fi
+
+	[ "${DTND_PIDFILE}" != "/var/run/dtnd.pid" ] \
+		&& DTND_OPTS="${DTND_OPTS} -p ${DTND_PIDFILE}"
+
+	return 0
+}
+
+start() {
+	checkconfig || return 1
+
+	ebegin "Starting ${SVCNAME}"
+	start-stop-daemon --start --exec "${DTND_BINARY}" \
+	    --pidfile "${DTND_PIDFILE}" \
+	    -- -c "${DTND_CONFDIR}/ibrdtn.conf" -p "${DTND_PIDFILE}" -D \
+	       ${DTND_OPTS}
+	eend $?
+}
+
+stop() {
+	if [ "${RC_CMD}" = "restart" ] ; then
+		checkconfig || return 1
+	fi
+
+	ebegin "Stopping ${SVCNAME}"
+	start-stop-daemon --stop --exec "${DTND_BINARY}" \
+	    --pidfile "${DTND_PIDFILE}" --quiet
+	eend $?
+}
+

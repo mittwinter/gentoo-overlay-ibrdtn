@@ -4,6 +4,8 @@
 
 EAPI=4
 
+inherit eutils
+
 DESCRIPTION="Daemon for implementation of Delay Tolerant Networks by IBR"
 HOMEPAGE="http://www.ibr.cs.tu-bs.de/projects/ibr-dtn/"
 SRC_URI="http://www.ibr.cs.tu-bs.de/projects/ibr-dtn/releases/${P}.tar.gz"
@@ -23,6 +25,11 @@ RDEPEND="${DEPEND}"
 
 RESTRICT="mirror"
 
+pkg_setup() {
+	enewgroup dtnd
+	enewuser dtnd -1 -1 /var/spool/ibrdtn dtnd
+}
+
 src_configure() {
 	econf \
 		$( use_with curl ) \
@@ -31,5 +38,23 @@ src_configure() {
 		$( use_with sqlite ) \
 		$( use_with tls ) \
 		$( use_with zlib compression ) || die "econf failed"
+}
+
+src_install() {
+	emake DESTDIR="${D}" install || die "emake install failed"
+	# Default config file:
+	insinto /etc/dtn
+	newins "${FILESDIR}/ibrdtn-${PV}.conf" ibrdtn.conf
+	# Extra doc:
+	insinto /usr/share/doc/${PN}/
+	doins COPYING
+	# init script:
+	if use libdaemon; then
+		newinitd "${FILESDIR}/dtnd.initd" dtnd
+		newconfd "${FILESDIR}/dtnd.confd" dtnd
+	fi
+	# Storage directory:
+	diropts -m 0750 -g dtnd -o dtnd
+	keepdir /var/spool/ibrdtn
 }
 
