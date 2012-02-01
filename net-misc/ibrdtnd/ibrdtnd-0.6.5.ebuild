@@ -30,6 +30,6 @@ src_configure() {
 		$( use_with lowpan ) \
 		$( use_with sqlite ) \
 		$( use_with tls ) \
-		$( use_with zlib compression )
+		$( use_with zlib compression ) || die "econf failed"
 }
 
