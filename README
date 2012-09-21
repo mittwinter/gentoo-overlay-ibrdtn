@@ -4,19 +4,22 @@ Gentoo portage overlay for IBR DTN
   Description
   ***********
 
-  IBR DTN is an open source implementation of Delay Tolerant Networks (see
-  http://en.wikipedia.org/wiki/Delay-tolerant_networking, for example), more
-  precisely the bundle protocol as defined in RFC5050.
+  IBR DTN is an open source implementation of Delay Tolerant Networks (see [0],
+  for example), more precisely the bundle protocol as defined in RFC5050.
 
-  For more information on IBR DTN visit
-  http://www.ibr.cs.tu-bs.de/projects/ibr-dtn/ .
+  For more information on IBR DTN visit the project homepage at [1] or the
+  project's wiki located at [2].
 
-  This repository provides ebuilds for all ibrdtn packages for Gentoo Linux
-  (http://gentoo.org/).
+  This repository provides ebuilds for all ibrdtn packages for Gentoo Linux[3].
 
   The ebuilds were tested on ~amd64 arch. If you experience any problems, don't
-  hesitate to open an issue at github
-  (https://github.com/mittwinter/gentoo-overlay-ibrdtn/issues).
+  hesitate to open an issue at github [4].
+
+  [0] http://en.wikipedia.org/wiki/Delay-tolerant_networking
+  [1] http://www.ibr.cs.tu-bs.de/projects/ibr-dtn/
+  [2] http://www.ibr.cs.tu-bs.de/trac/ibr-dtn
+  [3] http://gentoo.org/
+  [4] https://github.com/mittwinter/gentoo-overlay-ibrdtn/issues
 
   Usage
   *****
