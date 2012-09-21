@@ -21,16 +21,19 @@ Gentoo portage overlay for IBR DTN
   Usage
   *****
 
-  Add a local portage overlay directory to your /etc/make.conf by adding the line:
+  ibrdtn overlay can now be added via app-portage/layman (http://layman.sourceforge.net/).
 
-  PORTDIR_OVERLAY="/usr/local/portage ${PORTDIR_OVERLAY}"
+  After configuring layman in /etc/make.conf and /etc/layman/layman.cfg, run:
 
-  In /usr/local/portage, clone the git repository (as root):
+    $ sudo layman --overlays=https://dev.mroot.net/gentoo/repositories.xml --add=ibrdtn
 
-  # git clone git://github.com/mittwinter/gentoo-overlay-ibrdtn.git .
+  The overlay can be updated with:
+
+    $ sudo layman --overlays=https://dev.mroot.net/gentoo/repositories.xml --sync=ibrdtn
 
   And you are set to e. g.
-  # emerge -av ibrdtnd
+
+    $ sudo emerge -av ibrdtnd
 
   Future work
   ***********
