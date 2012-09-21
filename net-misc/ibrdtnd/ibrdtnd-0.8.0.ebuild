@@ -30,6 +30,10 @@ pkg_setup() {
 	enewuser dtnd -1 -1 /var/spool/ibrdtn dtnd
 }
 
+src_prepare() {
+	epatch "${FILESDIR}/ibrdtn.conf-${PV}.patch"
+}
+
 src_configure() {
 	econf \
 		$( use_with curl ) \
@@ -42,9 +46,6 @@ src_configure() {
 
 src_install() {
 	emake DESTDIR="${D}" install || die "emake install failed"
-	# Default config file:
-	insinto /etc/dtn
-	newins "${FILESDIR}/ibrdtn-${PV}.conf" ibrdtn.conf
 	# Extra doc:
 	insinto /usr/share/doc/${PN}/
 	doins COPYING
@@ -56,5 +57,8 @@ src_install() {
 	# Storage directory:
 	diropts -m 0750 -g dtnd -o dtnd
 	keepdir /var/spool/ibrdtn
+	# Log directory:
+	diropts -m 0750 -g dtnd -o dtnd
+	keepdir /var/log/ibrdtn
 }
 

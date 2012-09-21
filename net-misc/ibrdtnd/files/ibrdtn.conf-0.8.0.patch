@@ -1,0 +1,20 @@
+--- etc/ibrdtnd.conf-orig	2012-09-21 13:47:24.325779573 +0200
++++ etc/ibrdtnd.conf	2012-09-21 13:51:01.170238725 +0200
+@@ -11,7 +11,7 @@
+ #
+ # specifies an additional logfile
+ #
+-logfile = /var/log/ibrdtn.log
++logfile = /var/log/ibrdtn/ibrdtnd.log
+ 
+ #
+ # timezone offset in hours
+@@ -71,7 +71,7 @@
+ # define a folder for persistent storage of bundles
+ # if this is not defined bundles will stored in memory only
+ #
+-#storage_path = /var/spool/ibrdtn/bundles
++storage_path = /var/spool/ibrdtn/bundles
+ 
+ #
+ # defines the storage module to use
