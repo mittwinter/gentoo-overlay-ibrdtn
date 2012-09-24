@@ -1,0 +1,8 @@
+[Unit]
+Description=dtnd
+
+[Service]
+ExecStart=/usr/sbin/dtnd -c /etc/ibrdtnd.conf
+
+[Install]
+WantedBy=multi-user.target

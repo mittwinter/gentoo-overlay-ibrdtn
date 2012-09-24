@@ -4,7 +4,7 @@
 
 EAPI=4
 
-inherit eutils
+inherit eutils systemd
 
 DESCRIPTION="Daemon for implementation of Delay Tolerant Networks by IBR"
 HOMEPAGE="http://www.ibr.cs.tu-bs.de/projects/ibr-dtn/"
@@ -13,7 +13,7 @@ SRC_URI="http://www.ibr.cs.tu-bs.de/projects/ibr-dtn/releases/${P}.tar.gz"
 LICENSE="Apache-2.0"
 SLOT="0"
 KEYWORDS="~amd64"
-IUSE="curl dtnsec +libdaemon lowpan sqlite tls zlib"
+IUSE="curl dtnsec +libdaemon lowpan sqlite systemd tls zlib"
 DEPEND="=net-misc/ibrcommon-${PV}[lowpan=]
 	=net-misc/ibrdtn-${PV} \
 	libdaemon? ( dev-libs/libdaemon ) \
@@ -53,6 +53,10 @@ src_install() {
 	if use libdaemon; then
 		newinitd "${FILESDIR}/dtnd.initd" dtnd
 		newconfd "${FILESDIR}/dtnd.confd" dtnd
+	fi
+	# systemd unit:
+	if use systemd; then
+		systemd_dounit "${FILESDIR}/dtnd.service"
 	fi
 	# Storage directory:
 	diropts -m 0750 -g dtnd -o dtnd
